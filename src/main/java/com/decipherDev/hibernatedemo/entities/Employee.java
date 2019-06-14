@@ -1,5 +1,7 @@
 package com.decipherDev.hibernatedemo.entities;
 
+import java.util.List;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -7,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Employee {
@@ -21,6 +25,10 @@ public class Employee {
 	
 	@AttributeOverride(name="flatNo", column = @Column(name="hno"))
 	private Address address;
+	
+	@OneToOne
+	@JoinColumn(name="project_identifier")
+	private Project project;
 		
 	@Embeddable
 	class Address {
