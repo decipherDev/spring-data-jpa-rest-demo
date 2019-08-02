@@ -10,13 +10,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-public class Employee {
+@Getter
+@Setter
+@NoArgsConstructor
+public final class Employee {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int id;
+	private long id;
 	
 	@Column(name="emp_name")
 	private String name;
@@ -26,12 +34,14 @@ public class Employee {
 	@AttributeOverride(name="flatNo", column = @Column(name="hno"))
 	private Address address;
 	
-	@OneToOne
+	@OneToMany
 	@JoinColumn(name="project_identifier")
-	private Project project;
+	private List<Project> project;
 		
 	@Embeddable
-	class Address {
+	@Setter
+	@Getter
+	public class Address {
 		String flatNo;
 		String street;
 		String landmark;
